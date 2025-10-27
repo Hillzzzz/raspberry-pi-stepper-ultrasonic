@@ -50,3 +50,17 @@ sudo apt update
 sudo apt install -y python3-rpi-lgpio python3-gpiozero git
 git clone https://github.com/<yourusername>/ultra_step.git
 cd ultra_step
+ 
+## testing commands 
+python3 sensor_test.py
+python3 motor_test_fullstep.py
+python3 ultra_step.py
+
+##trouble? 
+LEDs blink but no spin: check 5 V V+, GND common, and correct IN order.
+
+Vibration only: increase MOTOR_STEP_DELAY to 0.015 – 0.020 s.
+
+“Cannot determine SOC” error: ensure script runs on the Pi and install python3-rpi-lgpio.
+
+ECHO 5 V risk: always keep the resistor divider (≈ 10 k / 20 k).
