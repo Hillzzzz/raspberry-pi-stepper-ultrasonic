@@ -1,0 +1,52 @@
+# Ultra Step — Raspberry Pi Stepper + Ultrasonic Control
+
+A compact Raspberry Pi project combining an HC-SR04 ultrasonic ranging sensor and a 28BYJ-48 stepper motor (via ULN2003 driver).  
+When an object comes within a configurable distance, the motor rotates a set number of steps.
+
+---
+
+## Features
+- Accurate distance measurement using the **HC-SR04** ultrasonic sensor  
+- Full-step control of **28BYJ-48** through a **ULN2003** driver  
+- Safe voltage divider on ECHO line  
+- Configurable distance threshold, step count, direction, and speed  
+- Clean GPIO shutdown on exit  
+- Modular scripts for isolated sensor and motor testing  
+
+---
+
+## Hardware Connections
+
+### Power and Ground
+| Pi Pin | Connects To | Notes |
+|--------|--------------|-------|
+| **5 V (Pin 2)** | ULN2003 V+ | Motor board power |
+| **5 V (Pin 2)** | HC-SR04 VCC | Sensor power |
+| **GND (Pin 6)** | ULN2003 GND | Common ground |
+| **GND (Pin 6)** | HC-SR04 GND | Common ground |
+
+### Motor Signals
+| ULN2003 Input | Pi GPIO | Pin | Function |
+|---------------|----------|-----|-----------|
+| IN1 | GPIO 17 | 11 | Coil A1 |
+| IN2 | GPIO 18 | 12 | Coil A2 |
+| IN3 | GPIO 27 | 13 | Coil B1 |
+| IN4 | GPIO 22 | 15 | Coil B2 |
+
+### Sensor Signals
+| HC-SR04 Pin | Pi GPIO | Pin | Notes |
+|-------------|----------|-----|-------|
+| VCC | 5 V | 2 | Power |
+| GND | GND | 6 | Common ground |
+| TRIG | GPIO 23 | 16 | Output from Pi |
+| ECHO | GPIO 24 | 18 | ⚠️ Use 10 kΩ → GPIO node → 20 kΩ → GND divider |
+
+---
+
+## Software Setup
+
+```bash
+sudo apt update
+sudo apt install -y python3-rpi-lgpio python3-gpiozero git
+git clone https://github.com/<yourusername>/ultra_step.git
+cd ultra_step
